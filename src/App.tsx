@@ -6,7 +6,7 @@ import AddIssueForm from "./components/add-issue-form";
 function App() {
   return (
     <div className="App">
-      <AddIssueForm/>
+
     </div>
   );
 }
