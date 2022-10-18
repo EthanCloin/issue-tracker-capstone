@@ -15,10 +15,12 @@ function AddIssueForm({addNewIssue}:Props) {
     }
     return (
         <form className="AddIssueForm" onSubmit={(submissionEvent)=>{handleSubmission(submissionEvent)}}>
+            <h2>Add New Issue</h2>
             <label htmlFor="description">Description</label>
             <input type="text" name="description" id="description" value={givenDescription} onChange={(changeEvent)=>setGivenDescription(changeEvent.target.value)}/>
             <label htmlFor="assignee">Assignee</label>
             <input type="text" name="assignee" id="assignee" value={givenAssignee} onChange={(changeEvent)=>setGivenAssignee(changeEvent.target.value)}/>
+            <input type="submit">Add Issue</input>
         </form>
     )
 }
