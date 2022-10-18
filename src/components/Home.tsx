@@ -3,6 +3,7 @@ import Issue, { IssueResponse } from "../models/Issue";
 import { addIssue, getAllIssues } from "../services/IssueService";
 import AddIssueForm from "./add-issue-form";
 import "./Home.css";
+import IssueList from "./issue-list";
 
 const Home = () => {
   const [issues, setIssues] = useState<IssueResponse[]>([]);
@@ -24,6 +25,7 @@ const Home = () => {
   return (
     <div className="Home">
       <AddIssueForm addNewIssue={addNewIssue} />
+      <IssueList issues={issues}/>
     </div>
   );
 };
