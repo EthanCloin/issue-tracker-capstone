@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import Issue from "../models/Issue";
+import Issue, { IssueResponse } from "../models/Issue";
 import { addIssue, getAllIssues } from "../services/IssueService";
 import AddIssueForm from "./add-issue-form";
 import "./Home.css";
 
 const Home = () => {
-  const [issues, setIssues] = useState<Issue[]>([]);
+  const [issues, setIssues] = useState<IssueResponse[]>([]);
 
   useEffect(() => {
     // this only runs when the home component is first mounted
@@ -19,7 +19,7 @@ const Home = () => {
   const addNewIssue = (newIssue: Issue) => {
     const rsp = addIssue(newIssue);
     console.log("add response: ", rsp);
-    setIssues([...issues, newIssue]);
+    getAllIssues().then((res) => setIssues(res));
   };
   return (
     <div className="Home">
