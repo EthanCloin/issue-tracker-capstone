@@ -1,8 +1,8 @@
 import Issue from "../models/Issue";
-import {FormEvent, useState} from "react";
+import { FormEvent, useState } from "react";
 
 interface Props {
-    addNewIssue: (newIssue: Issue)=>void
+  addNewIssue: (newIssue: Issue) => void;
 }
 
 function AddIssueForm({addNewIssue}:Props) {
@@ -25,4 +25,4 @@ function AddIssueForm({addNewIssue}:Props) {
     )
 }
 
-export default AddIssueForm
+export default AddIssueForm;
