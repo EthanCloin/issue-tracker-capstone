@@ -20,7 +20,7 @@ function AddIssueForm({addNewIssue}:Props) {
             <input type="text" name="description" id="description" value={givenDescription} onChange={(changeEvent)=>setGivenDescription(changeEvent.target.value)}/>
             <label htmlFor="assignee">Assignee</label>
             <input type="text" name="assignee" id="assignee" value={givenAssignee} onChange={(changeEvent)=>setGivenAssignee(changeEvent.target.value)}/>
-            <input type="submit">Add Issue</input>
+            <input type="submit" value="Add New Issue"/>
         </form>
     )
 }
