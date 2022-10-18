@@ -1,10 +1,13 @@
+// I would prefer to use the terse syntax 'Issue' most often.
+// maybe we change this again to be IssuePrototype (no ID) and Issue (has id)
+
 export default interface Issue {
   description: string;
   status: "open" | "closed" | string; // consider custom typing or something to only allow open or closed
   assignee: string;
 }
 
-export interface IssueResponse {
+export interface IssueResponse extends Issue {
   _id: string;
 }
 
