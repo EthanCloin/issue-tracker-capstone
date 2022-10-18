@@ -10,7 +10,8 @@ function AddIssueForm({addNewIssue}:Props) {
     const [givenAssignee, setGivenAssignee] = useState("")
     function handleSubmission(submitEvent: FormEvent) {
         submitEvent.preventDefault()
-        addNewIssue({id: "", assignee:givenAssignee, description:givenDescription, status:"open"})
+        const newId: number = Math.round(Math.random())
+        addNewIssue({id: newId.toString(), assignee:givenAssignee, description:givenDescription, status:"open"})
     }
     return (
         <form className="AddIssueForm" onSubmit={(submissionEvent)=>{handleSubmission(submissionEvent)}}>
