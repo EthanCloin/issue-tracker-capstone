@@ -1,10 +1,10 @@
 import axios from "axios";
-import Issue, { IssueMetadata } from "../models/Issue";
+import Issue, { IssueMetadata, IssueResponse } from "../models/Issue";
 
 const dbApiKey = process.env.REACT_APP_DB_API_KEY_DEV || "";
 const issuesDocumentUrl = "https://issuetracker-b807.restdb.io/rest/issue";
 
-export const getAllIssues = (): Promise<Issue[]> => {
+export const getAllIssues = (): Promise<IssueResponse[]> => {
   return axios
     .get(issuesDocumentUrl, {
       headers: {
