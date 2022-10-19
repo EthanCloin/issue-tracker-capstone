@@ -1,0 +1,33 @@
+.IssueListItem {
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+  height: 30vh;
+  border: 2px solid black;
+  margin: 0.5rem;
+  /* justify-content:  */
+}
+
+.IssueListItem article {
+  flex-direction: row;
+}
+
+.IssueListItem .issue-status {
+  border-radius: 5%;
+  padding: 0.5%;
+  height: fit-content;
+  margin-right: auto;
+}
+.IssueListItem .issue-status.open {
+  background-color: rgba(200, 63, 63, 0.7);
+  border: 2px rgba(200, 63, 63, 0.7) solid;
+}
+
+.IssueListItem .issue-status.closed {
+  background-color: rgba(63, 200, 63, 0.7);
+  border: 2px rgba(63, 200, 63, 0.7) solid;
+}
+
+.IssueListItem .issue-description-title {
+  font-size: medium;
+}
