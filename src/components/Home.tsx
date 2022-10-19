@@ -5,7 +5,6 @@ import AddIssueForm from "./add-issue-form";
 import "./Home.css";
 import IssueList from "./issue-list";
 import {useSearchParams} from "react-router-dom";
-import {stat} from "fs";
 
 const Home = () => {
   const [issues, setIssues] = useState<Issue[]>([]);
