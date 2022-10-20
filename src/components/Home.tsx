@@ -11,8 +11,8 @@ import IssuesContext from "../context/IssueContext";
 const Home = () => {
   const [searchParameters] = useSearchParams();
 
-  const assigneeFilter = searchParameters.get("assignee");
-  const statusFilter = searchParameters.get("status");
+  const assigneeFilter = searchParameters.get("assignee") || "";
+  const statusFilter = searchParameters.get("status") || "";
   // console.log("assigneeFilter: " + assigneeFilter);
   // console.log("statusFilter: " + statusFilter);
 
@@ -48,8 +48,8 @@ const Home = () => {
   return (
     <div className="Home">
       <AddIssueForm addNewIssue={addIssue} />
-      <IssueFilterForm />
-      <IssueList issues={issues} />
+      <IssueFilterForm initialAssigneeValue={assigneeFilter} initialStatusValue={statusFilter}/>
+      <IssueList issues={issues} assigneeFilter={assigneeFilter} statusFilter={statusFilter}/>
     </div>
   );
 };
