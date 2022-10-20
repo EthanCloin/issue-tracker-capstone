@@ -8,6 +8,11 @@ interface IssueContextModel {
   hasAssignee: (id: string, assignee: string) => boolean;
   isOpen: (id: string) => boolean;
   // consider adding editIssue
+  // really consider adding the below:
+  /*
+  setAssignee: (id: string, assignee: string) => void;
+  setStatus: (status: ("open" | "closed")) => void;
+  */
 }
 
 const defaults: IssueContextModel = {
