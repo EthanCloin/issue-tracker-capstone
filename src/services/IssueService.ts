@@ -39,7 +39,7 @@ export const updateIssueInDb = (
   id: string,
   assignee?: string,
   status?: "open" | "closed"
-) => {
+): Promise<IssueResponse> => {
   return axios({
     method: "put",
     url: `${issuesDocumentUrl}/${id}`,
