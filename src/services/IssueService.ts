@@ -27,7 +27,7 @@ export const addIssueToDb = (newIssue: Issue): Promise<IssueResponse> => {
   }).then((res) => res.data);
 };
 
-export const deleteIssue = (id: string): Promise<string> => {
+export const deleteIssueFromDb = (id: string): Promise<string> => {
   return axios({
     method: "delete",
     url: `${issuesDocumentUrl}/${id}`,
