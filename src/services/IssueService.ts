@@ -14,6 +14,16 @@ export const getAllIssues = (): Promise<IssueResponse[]> => {
     .then((res) => res.data);
 };
 
+export const getIssue = (id: string): Promise<IssueMetadata> => {
+  return axios
+    .get(`${issuesDocumentUrl}/${id} `, {
+      headers: {
+        "x-api-key": dbApiKey,
+      },
+    })
+    .then((res) => res.data);
+};
+
 export const addIssueToDb = (newIssue: Issue): Promise<IssueResponse> => {
   return axios({
     method: "post",
