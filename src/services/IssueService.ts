@@ -14,7 +14,7 @@ export const getAllIssues = (): Promise<IssueResponse[]> => {
     .then((res) => res.data);
 };
 
-export const addIssue = (newIssue: Issue): Promise<IssueMetadata> => {
+export const addIssueToDb = (newIssue: Issue): Promise<IssueResponse> => {
   return axios({
     method: "post",
     url: issuesDocumentUrl,
