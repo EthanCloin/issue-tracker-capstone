@@ -14,7 +14,17 @@ export const getAllIssues = (): Promise<IssueResponse[]> => {
     .then((res) => res.data);
 };
 
-export const addIssue = (newIssue: Issue): Promise<IssueMetadata> => {
+export const getIssue = (id: string): Promise<IssueMetadata> => {
+  return axios
+    .get(`${issuesDocumentUrl}/${id} `, {
+      headers: {
+        "x-api-key": dbApiKey,
+      },
+    })
+    .then((res) => res.data);
+};
+
+export const addIssueToDb = (newIssue: Issue): Promise<IssueResponse> => {
   return axios({
     method: "post",
     url: issuesDocumentUrl,
@@ -23,6 +33,26 @@ export const addIssue = (newIssue: Issue): Promise<IssueMetadata> => {
       description: newIssue.description,
       status: newIssue.status,
     },
+    headers: { "x-api-key": dbApiKey },
+  }).then((res) => res.data);
+};
+
+export const deleteIssueFromDb = (id: string): Promise<string> => {
+  return axios({
+    method: "delete",
+    url: `${issuesDocumentUrl}/${id}`,
+    headers: { "x-api-key": dbApiKey },
+  }).then((res) => res.data);
+};
+
+export const updateIssueInDb = (
+  id: string,
+  assignee?: string,
+  status?: "open" | "closed"
+): Promise<IssueResponse> => {
+  return axios({
+    method: "put",
+    url: `${issuesDocumentUrl}/${id}`,
     headers: { "x-api-key": dbApiKey },
   }).then((res) => res.data);
 };
