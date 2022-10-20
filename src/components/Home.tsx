@@ -5,6 +5,7 @@ import AddIssueForm from "./add-issue-form";
 import "./Home.css";
 import IssueList from "./issue-list";
 import {useSearchParams} from "react-router-dom";
+import IssueFilterForm from "./issue-filter-form";
 
 const Home = () => {
   const [issues, setIssues] = useState<IssueResponse[]>([]);
@@ -41,6 +42,7 @@ const Home = () => {
   return (
     <div className="Home">
       <AddIssueForm addNewIssue={addNewIssue} />
+      <IssueFilterForm/>
       <IssueList issues={filteredIssues}/>
     </div>
   );
