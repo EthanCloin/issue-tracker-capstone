@@ -1,22 +1,38 @@
 .IssueListItem {
   display: flex;
   flex-direction: column;
-  width: 40vw;
-  height: 30vh;
+  min-width: 40vw;
+  max-width: 60vw;
+  min-height: 10vh;
+  max-height: 30vh;
   border: 2px solid black;
-  margin: 0.5rem;
-  /* justify-content:  */
+  padding: 0.25rem;
+  margin: 0.35rem auto;
 }
 
-.IssueListItem article {
+.IssueListItem .issue-header {
+  display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-height: 3em;
 }
 
 .IssueListItem .issue-status {
   border-radius: 5%;
-  padding: 0.5%;
-  height: fit-content;
+  max-width: min-content;
   margin-right: auto;
+  margin-top: auto;
+  padding: 0.5rem;
+  font-size: medium;
+}
+
+.IssueListItem .delete-issue {
+  border-radius: 5%;
+  margin-left: auto;
+  margin-bottom: auto;
+  padding: 0.5rem;
+  font-size: medium;
 }
 .IssueListItem .issue-status.open {
   background-color: rgba(200, 63, 63, 0.7);
@@ -28,6 +44,18 @@
   border: 2px rgba(63, 200, 63, 0.7) solid;
 }
 
-.IssueListItem .issue-description-title {
-  font-size: medium;
+.IssueListItem .issue-description {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.IssueListItem .issue-description .title {
+  font-size: x-large;
+}
+
+.IssueListItem .issue-assignee {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.25rem;
 }

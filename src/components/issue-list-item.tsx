@@ -9,24 +9,26 @@ interface Props {
 const IssueListItem = ({ issue }: Props) => {
   const { deleteIssue } = useContext(IssuesContext);
   const statusClass =
-    issue.status == "closed" ? "issue-status closed" : "issue-status open";
+    issue.status === "closed" ? "issue-status closed" : "issue-status open";
   return (
     <ul className="IssueListItem">
-      <section className="card-header">
+      <section className="issue-header">
         <p className={statusClass}>{issue.status}</p>
         <button className="delete-issue" onClick={() => deleteIssue(issue._id)}>
           Remove Issue
         </button>
       </section>
 
-      <article>
-        <h3>Assigned To:</h3>
-        <p>{issue.assignee}</p>
-      </article>
-      <article>
-        <h3 className="issue-description-title">Description</h3>
+      <section className="issue-description">
+        <h3 className="title">Description</h3>
         <p className="issue-description">{issue.description}</p>
-      </article>
+      </section>
+
+      <section className="issue-assignee">
+        <p>
+          <strong>Assigned To:</strong> {issue.assignee}
+        </p>
+      </section>
     </ul>
   );
 };
