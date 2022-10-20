@@ -34,3 +34,15 @@ export const deleteIssueFromDb = (id: string): Promise<string> => {
     headers: { "x-api-key": dbApiKey },
   }).then((res) => res.data);
 };
+
+export const updateIssueInDb = (
+  id: string,
+  assignee?: string,
+  status?: "open" | "closed"
+) => {
+  return axios({
+    method: "put",
+    url: `${issuesDocumentUrl}/${id}`,
+    headers: { "x-api-key": dbApiKey },
+  }).then((res) => res.data);
+};
