@@ -7,15 +7,15 @@ interface Props {
 }
 
 function IssueFilterForm({initialAssigneeValue, initialStatusValue}:Props) {
-    const [statusFilter, setStatusFilter] = useState(initialAssigneeValue)
-    const [assigneeFilter, setAssigneeFilter] = useState(initialStatusValue)
+    const [statusFilter, setStatusFilter] = useState(initialStatusValue)
+    const [assigneeFilter, setAssigneeFilter] = useState(initialAssigneeValue)
     const navigate = useNavigate()
     function applyFilter(submitEvent:FormEvent):void {
         submitEvent.preventDefault()
         navigate(`/?${new URLSearchParams({assignee:assigneeFilter, status:statusFilter})}`)
     }
     return (
-        <form className="IssueFilterForm">
+        <form className="IssueFilterForm" onSubmit={applyFilter}>
             <h2>Issue Filter</h2>
             <label htmlFor="status">Status</label>
             <input type="text" name="status" id="status" value={statusFilter} onChange={(changeEvent)=>setStatusFilter(changeEvent.target.value)}/>
