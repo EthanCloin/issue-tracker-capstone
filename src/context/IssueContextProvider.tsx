@@ -53,4 +53,14 @@ const IssuesContextProvider = ({ children }: Props) => {
     console.info("open ids", openIds);
     return openIds.includes(id);
   };
+
+  return (
+    <IssuesContext.Provider
+      value={{ issues, addIssue, deleteIssue, hasAssignee, isOpen }}
+    >
+      {children}
+    </IssuesContext.Provider>
+  );
 };
+
+export default IssuesContextProvider;
