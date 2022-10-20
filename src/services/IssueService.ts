@@ -26,3 +26,11 @@ export const addIssueToDb = (newIssue: Issue): Promise<IssueResponse> => {
     headers: { "x-api-key": dbApiKey },
   }).then((res) => res.data);
 };
+
+export const deleteIssue = (id: string): Promise<string> => {
+  return axios({
+    method: "delete",
+    url: `${issuesDocumentUrl}/${id}`,
+    headers: { "x-api-key": dbApiKey },
+  }).then((res) => res.data);
+};
