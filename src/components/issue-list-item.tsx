@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import IssuesContext from "../context/IssueContext";
 import { IssueResponse } from "../models/Issue";
 import "./issue-list-item.css";
 interface Props {
@@ -5,11 +7,18 @@ interface Props {
 }
 
 const IssueListItem = ({ issue }: Props) => {
+  const { deleteIssue } = useContext(IssuesContext);
   const statusClass =
     issue.status == "closed" ? "issue-status closed" : "issue-status open";
   return (
     <ul className="IssueListItem">
-      <p className={statusClass}>{issue.status}</p>
+      <section className="card-header">
+        <p className={statusClass}>{issue.status}</p>
+        <button className="delete-issue" onClick={() => deleteIssue(issue._id)}>
+          Remove Issue
+        </button>
+      </section>
+
       <article>
         <h3>Assigned To:</h3>
         <p>{issue.assignee}</p>

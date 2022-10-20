@@ -1,6 +1,10 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import Issue, { IssueResponse } from "../models/Issue";
-import { addIssueToDb, deleteIssueFromDb } from "../services/IssueService";
+import {
+  addIssueToDb,
+  deleteIssueFromDb,
+  getAllIssues,
+} from "../services/IssueService";
 import IssuesContext from "./IssueContext";
 
 interface Props {
@@ -8,7 +12,25 @@ interface Props {
 }
 
 const IssuesContextProvider = ({ children }: Props) => {
+  // current concern is with state var issues in home vs ctxt var issues in here
+  // should we expose the setIssues as one of our context methods? seems like that would
+  // break encapsulation, but we need to update it based on filters and original getAll
+
+  // we can add useEffect here to set initial getAll values
   const [issues, setIssues] = useState<IssueResponse[]>([]);
+  const getIssues = () => {
+    getAllIssues().then((res) => {
+      setIssues(res);
+      console.log("issues: ", res);
+    });
+  };
+
+  useEffect(() => {
+    // this only runs when the home component is first mounted
+    // adding issues to the dependency array makes it keep calling
+    // the getAllIssues endpoint.
+    getIssues();
+  }, []);
 
   const addIssue = (newIssue: Issue) => {
     addIssueToDb(newIssue).then(
@@ -26,7 +48,10 @@ const IssuesContextProvider = ({ children }: Props) => {
     deleteIssueFromDb(issueId).then(
       (res) => {
         console.info("DELETED FROM DB", res);
-        setIssues((prev) => prev.filter((issue) => issue._id != issueId));
+        setIssues((prev) => {
+          const index: number = prev.findIndex((item) => item._id === issueId);
+          return [...prev.slice(0, index), ...prev.slice(index + 1)];
+        });
       },
       (err) => {
         console.error("UNABLE TO DELETE FROM DB", err);
