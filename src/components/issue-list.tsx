@@ -9,7 +9,7 @@ function IssueList({ issues }: Props) {
   return (
     <ol className="IssuesList">
       {issues.map((issue) => (
-        <IssueListItem issue={issue} />
+        <IssueListItem key={issue._id} issue={issue} />
       ))}
     </ol>
   );
