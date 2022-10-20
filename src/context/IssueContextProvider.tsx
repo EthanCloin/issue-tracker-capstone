@@ -4,6 +4,7 @@ import {
   addIssueToDb,
   deleteIssueFromDb,
   getAllIssues,
+  updateIssueInDb,
 } from "../services/IssueService";
 import IssuesContext from "./IssueContext";
 
@@ -79,9 +80,49 @@ const IssuesContextProvider = ({ children }: Props) => {
     return openIds.includes(id);
   };
 
+  const setStatus = (id: string, status: "open" | "closed") => {
+    updateIssueInDb(id, undefined, status).then(
+      (res) => {
+        // need to change the issue in state to be the updated v from response
+        setIssues((prev) => {
+          const index: number = prev.findIndex((item) => item._id === id);
+          // should put the returned updated issue in the same place as the prev
+          return [...prev.slice(0, index), res, ...prev.slice(index + 1)];
+        });
+      },
+      (err) => {
+        console.error("UNABLE TO UPDATE ISSUE!", err);
+      }
+    );
+  };
+
+  const setAssignee = (id: string, assignee: string) => {
+    updateIssueInDb(id, assignee, undefined).then(
+      (res) => {
+        // need to change the issue in state to be the updated v from response
+        setIssues((prev) => {
+          const index: number = prev.findIndex((item) => item._id === id);
+          // should put the returned updated issue in the same place as the prev
+          return [...prev.slice(0, index), res, ...prev.slice(index + 1)];
+        });
+      },
+      (err) => {
+        console.error("UNABLE TO UPDATE ISSUE!", err);
+      }
+    );
+  };
+
   return (
     <IssuesContext.Provider
-      value={{ issues, addIssue, deleteIssue, hasAssignee, isOpen }}
+      value={{
+        issues,
+        addIssue,
+        setStatus,
+        setAssignee,
+        deleteIssue,
+        hasAssignee,
+        isOpen,
+      }}
     >
       {children}
     </IssuesContext.Provider>
