@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IssueMetadata } from "../models/Issue";
 import { getIssue } from "../services/IssueService";
-import "./IssueDetails.css";
+// import "./IssueDetails.css";
 
 // assuming that we get the metadata from performing a
 // GET req with the issueId. this may require an update to
