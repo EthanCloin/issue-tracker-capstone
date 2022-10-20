@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Issue, { IssueResponse } from "../models/Issue";
-import { addIssue, getAllIssues } from "../services/IssueService";
+import { addIssueToDb, getAllIssues } from "../services/IssueService";
 import AddIssueForm from "./add-issue-form";
 import "./Home.css";
 import IssueList from "./issue-list";
@@ -24,7 +24,7 @@ const Home = () => {
     });
   }, []);
   const addNewIssue = (newIssue: Issue) => {
-    const rsp = addIssue(newIssue);
+    const rsp = addIssueToDb(newIssue);
     console.log("add response: ", rsp);
     getAllIssues().then((res) => setIssues(res));
   };
