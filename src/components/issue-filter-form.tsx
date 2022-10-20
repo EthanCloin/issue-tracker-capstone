@@ -1,9 +1,14 @@
 import {FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-function IssueFilterForm() {
-    const [statusFilter, setStatusFilter] = useState("")
-    const [assigneeFilter, setAssigneeFilter] = useState("")
+interface Props {
+    initialAssigneeValue:string
+    initialStatusValue:string
+}
+
+function IssueFilterForm({initialAssigneeValue, initialStatusValue}:Props) {
+    const [statusFilter, setStatusFilter] = useState(initialAssigneeValue)
+    const [assigneeFilter, setAssigneeFilter] = useState(initialStatusValue)
     const navigate = useNavigate()
     function applyFilter(submitEvent:FormEvent):void {
         submitEvent.preventDefault()

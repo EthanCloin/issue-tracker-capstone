@@ -42,7 +42,7 @@ const Home = () => {
   return (
     <div className="Home">
       <AddIssueForm addNewIssue={addNewIssue} />
-      <IssueFilterForm/>
+      <IssueFilterForm initialAssigneeValue={assigneeFilter ? assigneeFilter : ""} initialStatusValue={statusFilter ? statusFilter : ""}/>
       <IssueList issues={filteredIssues}/>
     </div>
   );
