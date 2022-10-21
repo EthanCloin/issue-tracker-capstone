@@ -1,6 +1,6 @@
 import {FormEvent, useContext, useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
-import { IssueMetadata } from "../models/Issue";
+import {IssueMetadata, IssueResponse} from "../models/Issue";
 import { getIssue } from "../services/IssueService";
 import "./IssueDetails.css";
 import IssuesContext from "../context/IssueContext";
@@ -10,16 +10,22 @@ import IssuesContext from "../context/IssueContext";
 // services
 const IssueDetails = () => {
   const issueId = useParams().id;
-  const {issues, deleteIssue} = useContext(IssuesContext)
-  const issue = issues[issues.findIndex((issue)=>issue._id === issueId)]
+  const {issues, deleteIssue, setStatus, setAssignee} = useContext(IssuesContext)
+  let issue = issues[issues.findIndex((issue)=>issue._id === issueId)]
   const statusClass =
       issue.status === "closed" ? "issue-status closed" : "issue-status open";
-  const [newAssignee, setNewAssignee] = useState("")
+  const [newAssignee, setNewAssigneeValue] = useState("")
   const [newStatus, setNewStatus] = useState("")
     const applyChanges = (submitEvent:FormEvent) => {
-      submitEvent.preventDefault()
-        
-    }
+        submitEvent.preventDefault()
+        if (newAssignee !== "") {
+            setAssignee(issue._id, newAssignee)
+        }
+        if (newStatus !== "") {
+            setStatus(issue._id, newStatus)
+        }
+        issue = issues[issues.findIndex((issue)=>issue._id === issueId)]
+  }
   return (
       <div className="IssueListItem">
         <section className="issue-header">
@@ -39,9 +45,9 @@ const IssueDetails = () => {
             <strong>Assigned To:</strong> {issue.assignee}
           </p>
         </section>
-          <form>
+          <form onSubmit={applyChanges}>
           <label htmlFor={"changeAssignee"}>Change Assignee</label>
-          <input type={"text"} name={"changeAssignee"} value={newAssignee} onChange={(changeEvent)=>setNewAssignee(changeEvent.target.value)}/>
+          <input type={"text"} name={"changeAssignee"} value={newAssignee} onChange={(changeEvent)=>setNewAssigneeValue(changeEvent.target.value)}/>
           <label htmlFor={"changeStatus"}>Change Status</label>
           <input type={"text"} name={"changeStatus"} value={newStatus} onChange={(changeEvent)=>setNewStatus(changeEvent.target.value)}/>
           <input type={"submit"} value={"Apply Changes"}/>

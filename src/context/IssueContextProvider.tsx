@@ -3,7 +3,8 @@ import Issue, { IssueResponse } from "../models/Issue";
 import {
   addIssueToDb,
   deleteIssueFromDb,
-  getAllIssues, updateIssueInDb,
+  getAllIssues,
+  updateIssueInDb,
 } from "../services/IssueService";
 import IssuesContext from "./IssueContext";
 
@@ -34,28 +35,28 @@ const IssuesContextProvider = ({ children }: Props) => {
 
   const addIssue = (newIssue: Issue) => {
     addIssueToDb(newIssue).then(
-      (res) => {
-        console.info("ADDED TO DB", res._id);
-        setIssues([...issues, res]);
-      },
-      (err) => {
-        console.error("UNABLE TO ADD TO DB", err);
-      }
+        (res) => {
+          console.info("ADDED TO DB", res._id);
+          setIssues([...issues, res]);
+        },
+        (err) => {
+          console.error("UNABLE TO ADD TO DB", err);
+        }
     );
   };
 
   const deleteIssue = (issueId: string) => {
     deleteIssueFromDb(issueId).then(
-      (res) => {
-        console.info("DELETED FROM DB", res);
-        setIssues((prev) => {
-          const index: number = prev.findIndex((item) => item._id === issueId);
-          return [...prev.slice(0, index), ...prev.slice(index + 1)];
-        });
-      },
-      (err) => {
-        console.error("UNABLE TO DELETE FROM DB", err);
-      }
+        (res) => {
+          console.info("DELETED FROM DB", res);
+          setIssues((prev) => {
+            const index: number = prev.findIndex((item) => item._id === issueId);
+            return [...prev.slice(0, index), ...prev.slice(index + 1)];
+          });
+        },
+        (err) => {
+          console.error("UNABLE TO DELETE FROM DB", err);
+        }
     );
   };
 
@@ -79,22 +80,52 @@ const IssuesContextProvider = ({ children }: Props) => {
     return openIds.includes(id);
   };
 
-  const updateIssue = (updatedIssue:IssueResponse) => {
-    updateIssueInDb(updatedIssue._id, updatedIssue.assignee).then()
-    let newIssues:IssueResponse[] = []
-    issues.forEach((issue)=> {
-          if (issue._id !== updatedIssue._id) {
-            newIssues.push(issue)
-            return
-          }
-          newIssues.push(updatedIssue)
-    })}
+  const setStatus = (id: string, status: "open" | "closed" | string) => {
+    updateIssueInDb(id, undefined, status).then(
+        (res) => {
+          // need to change the issue in state to be the updated v from response
+          setIssues((prev) => {
+            const index: number = prev.findIndex((item) => item._id === id);
+            // should put the returned updated issue in the same place as the prev
+            return [...prev.slice(0, index), res, ...prev.slice(index + 1)];
+          });
+        },
+        (err) => {
+          console.error("UNABLE TO UPDATE ISSUE!", err);
+        }
+    );
+  };
+
+  const setAssignee = (id: string, assignee: string) => {
+    updateIssueInDb(id, assignee, undefined).then(
+        (res) => {
+          // need to change the issue in state to be the updated v from response
+          setIssues((prev) => {
+            const index: number = prev.findIndex((item) => item._id === id);
+            // should put the returned updated issue in the same place as the prev
+            return [...prev.slice(0, index), res, ...prev.slice(index + 1)];
+          });
+        },
+        (err) => {
+          console.error("UNABLE TO UPDATE ISSUE!", err);
+        }
+    );
+  };
+
   return (
-    <IssuesContext.Provider
-      value={{ issues, addIssue, deleteIssue, hasAssignee, isOpen, updateIssue }}
-    >
-      {children}
-    </IssuesContext.Provider>
+      <IssuesContext.Provider
+          value={{
+            issues,
+            addIssue,
+            setStatus,
+            setAssignee,
+            deleteIssue,
+            hasAssignee,
+            isOpen,
+          }}
+      >
+        {children}
+      </IssuesContext.Provider>
   );
 };
 
