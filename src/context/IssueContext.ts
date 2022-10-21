@@ -19,7 +19,6 @@ const defaults: IssueContextModel = {
   deleteIssue: () => {},
   hasAssignee: () => false,
   isOpen: () => false,
-  updateIssue: () => {},
 };
 
 const IssuesContext = createContext(defaults);
