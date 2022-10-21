@@ -1,9 +1,30 @@
+import { useContext } from "react";
+import { IssueResponse } from "../models/Issue";
 import "./Header.css";
+import IssuesContext from "../context/IssueContext";
+
+interface Props {
+  issues: IssueResponse[];
+}
 
 const Header = () => {
+  const openCount = [];
+  const { addIssue, issues } = useContext(IssuesContext);
+
+  issues.forEach((issue) => {
+    if (issue.status === "open") {
+      openCount.push({ issue });
+    }
+  });
+
   return (
     <div className="Header">
-      <h1>Track the Issues!</h1>
+      <h1>** Welcome to the Issues board **</h1>
+      <h2>Current Total Issue Count: {issues.length}</h2>
+      <h2>
+        Current Open Issue Percentage:{" "}
+        {((openCount.length / issues.length) * 100).toFixed(2)}
+      </h2>
     </div>
   );
 };
