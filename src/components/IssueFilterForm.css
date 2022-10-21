@@ -1,12 +1,12 @@
-.AddIssueForm {
+.IssueFilterForm {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.AddIssueForm section {
+.IssueFilterForm section {
 }
 
-.AddIssueForm .add-title {
+.IssueFilterForm .filter-title {
   flex-grow: 3;
 }

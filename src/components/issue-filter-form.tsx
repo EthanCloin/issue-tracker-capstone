@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./IssueFilterForm.css";
 
 interface Props {
   initialAssigneeValue: string;
@@ -22,24 +23,31 @@ function IssueFilterForm({ initialAssigneeValue, initialStatusValue }: Props) {
   }
   return (
     <form className="IssueFilterForm" onSubmit={applyFilter}>
-      <h2>Issue Filter</h2>
-      <label htmlFor="status">Status</label>
-      <input
-        type="checkbox"
-        name="status"
-        id="status"
-        value={statusFilter}
-        onChange={(changeEvent) => setStatusFilter(changeEvent.target.value)}
-      />
-      <label htmlFor={"assignee"}>Assignee</label>
-      <input
-        type={"text"}
-        name={"assignee"}
-        id={"assignee"}
-        value={assigneeFilter}
-        onChange={(changeEvent) => setAssigneeFilter(changeEvent.target.value)}
-      />
-      <input type={"submit"} value={"Apply Filter"} />
+      <h2 className="filter-title">Filter By:</h2>
+      <section>
+        <label htmlFor="status">Status:</label>
+        <input
+          type="text"
+          name="status"
+          id="status"
+          value={statusFilter}
+          onChange={(changeEvent) => setStatusFilter(changeEvent.target.value)}
+        />
+      </section>
+
+      <section>
+        <label htmlFor={"assignee"}>Assignee:</label>
+        <input
+          type={"text"}
+          name={"assignee"}
+          id={"assignee"}
+          value={assigneeFilter}
+          onChange={(changeEvent) =>
+            setAssigneeFilter(changeEvent.target.value)
+          }
+        />
+        <input type={"submit"} value={"Apply Filter"} />
+      </section>
     </form>
   );
 }
