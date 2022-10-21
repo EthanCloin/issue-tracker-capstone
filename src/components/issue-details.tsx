@@ -10,20 +10,31 @@ import IssuesContext from "../context/IssueContext";
 // services
 const IssueDetails = () => {
   const issueId = useParams().id;
-  const {issues, deleteIssue} = useContext(IssuesContext)
-  const issue = issues[issues.findIndex((issue)=>issue._id === issueId)]
+  const {issues, deleteIssue, setAssignee, setStatus} = useContext(IssuesContext)
+  let issue = issues[issues.findIndex((issue)=>issue._id === issueId)]
   const statusClass =
       issue.status === "closed" ? "issue-status closed" : "issue-status open";
   const [newAssignee, setNewAssignee] = useState("")
   const [newStatus, setNewStatus] = useState("")
     const applyChanges = (submitEvent:FormEvent) => {
       submitEvent.preventDefault()
-        
+        if (newAssignee !== "") {
+            setAssignee(issue._id, newAssignee)
+        }
+        issue = issues[issues.findIndex((issue)=>issue._id === issueId)]
     }
+    const toggleStatus = (currentStatus: string): "open" | "closed" => {
+        return currentStatus === "closed" ? "open" : "closed";
+    };
   return (
       <div className="IssueListItem">
         <section className="issue-header">
-          <p className={statusClass}>{issue.status}</p>
+            <p
+                className={statusClass}
+                onClick={() => setStatus(issue._id, toggleStatus(issue.status))}
+            >
+                {issue.status}
+            </p>
           <button className="delete-issue" onClick={() => deleteIssue(issue._id)}>
             Remove Issue
           </button>
@@ -39,11 +50,9 @@ const IssueDetails = () => {
             <strong>Assigned To:</strong> {issue.assignee}
           </p>
         </section>
-          <form>
+          <form onSubmit={applyChanges}>
           <label htmlFor={"changeAssignee"}>Change Assignee</label>
           <input type={"text"} name={"changeAssignee"} value={newAssignee} onChange={(changeEvent)=>setNewAssignee(changeEvent.target.value)}/>
-          <label htmlFor={"changeStatus"}>Change Status</label>
-          <input type={"text"} name={"changeStatus"} value={newStatus} onChange={(changeEvent)=>setNewStatus(changeEvent.target.value)}/>
           <input type={"submit"} value={"Apply Changes"}/>
           </form>
       </div>
