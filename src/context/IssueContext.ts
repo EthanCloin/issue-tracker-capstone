@@ -7,6 +7,7 @@ interface IssueContextModel {
   deleteIssue: (issueId: string) => void;
   hasAssignee: (id: string, assignee: string) => boolean;
   isOpen: (id: string) => boolean;
+  updateIssue: (issue:IssueResponse)=>void
   // consider adding editIssue
   // really consider adding the below:
   /*
@@ -21,6 +22,7 @@ const defaults: IssueContextModel = {
   deleteIssue: () => {},
   hasAssignee: () => false,
   isOpen: () => false,
+  updateIssue: () => {},
 };
 
 const IssuesContext = createContext(defaults);

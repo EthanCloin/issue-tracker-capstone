@@ -3,7 +3,7 @@ import Issue, { IssueResponse } from "../models/Issue";
 import {
   addIssueToDb,
   deleteIssueFromDb,
-  getAllIssues,
+  getAllIssues, updateIssueInDb,
 } from "../services/IssueService";
 import IssuesContext from "./IssueContext";
 
@@ -79,9 +79,19 @@ const IssuesContextProvider = ({ children }: Props) => {
     return openIds.includes(id);
   };
 
+  const updateIssue = (updatedIssue:IssueResponse) => {
+    updateIssueInDb(updatedIssue._id, updatedIssue.assignee).then()
+    let newIssues:IssueResponse[] = []
+    issues.forEach((issue)=> {
+          if (issue._id !== updatedIssue._id) {
+            newIssues.push(issue)
+            return
+          }
+          newIssues.push(updatedIssue)
+    })}
   return (
     <IssuesContext.Provider
-      value={{ issues, addIssue, deleteIssue, hasAssignee, isOpen }}
+      value={{ issues, addIssue, deleteIssue, hasAssignee, isOpen, updateIssue }}
     >
       {children}
     </IssuesContext.Provider>
