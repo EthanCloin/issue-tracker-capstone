@@ -50,9 +50,26 @@ export const updateIssueInDb = (
   assignee?: string,
   status?: "open" | "closed"
 ): Promise<IssueResponse> => {
+  let fieldsToUpdate = {};
+
+  // there is surely a more concise version of this logic
+  if (assignee && status) {
+    fieldsToUpdate = {
+      status: status,
+      assignee: assignee,
+    };
+  } else if (assignee) {
+    fieldsToUpdate = { assignee: assignee };
+  } else if (status) {
+    fieldsToUpdate = { status: status };
+  } else {
+    console.warn("no issue properties provided to update fxn!");
+  }
+  console.info("UPDATE BODY: ", fieldsToUpdate);
   return axios({
     method: "put",
     url: `${issuesDocumentUrl}/${id}`,
     headers: { "x-api-key": dbApiKey },
+    data: fieldsToUpdate,
   }).then((res) => res.data);
 };

@@ -2,21 +2,38 @@ import { useContext } from "react";
 import IssuesContext from "../context/IssueContext";
 import { IssueResponse } from "../models/Issue";
 import "./issue-list-item.css";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 interface Props {
   issue: IssueResponse;
 }
 
 const IssueListItem = ({ issue }: Props) => {
-  const navigate = useNavigate()
-  const { deleteIssue } = useContext(IssuesContext);
+  const { deleteIssue, setStatus } = useContext(IssuesContext);
+
+  const toggleStatus = (currentStatus: string): "open" | "closed" => {
+    return currentStatus === "closed" ? "open" : "closed";
+  };
+
+  const navigate = useNavigate();
+
   const statusClass =
     issue.status === "closed" ? "issue-status closed" : "issue-status open";
   return (
     <ul className="IssueListItem">
       <section className="issue-header">
-        <p className={statusClass}>{issue.status}</p>
-          <button className={"DetailsButton"} onClick={()=>navigate(`/issue/${issue._id}`)}>Details</button>
+        <p
+          className={statusClass}
+          onClick={() => setStatus(issue._id, toggleStatus(issue.status))}
+        >
+          {issue.status}
+        </p>
+        <button
+          className={"DetailsButton"}
+          onClick={() => navigate(`/issue/${issue._id}`)}
+        >
+          Details
+        </button>
+
         <button className="delete-issue" onClick={() => deleteIssue(issue._id)}>
           Remove Issue
         </button>
