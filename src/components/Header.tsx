@@ -19,11 +19,11 @@ const Header = () => {
 
   return (
     <div className="Header">
-      <h1>** Welcome to the Issues board **</h1>
-      <h2>Current Total Issue Count: {issues.length}</h2>
+      <h1>** Welcome to the Issues Board **</h1>
       <h2>
-        Current Open Issue Percentage:{" "}
-        {((openCount.length / issues.length) * 100).toFixed(2)}
+        Current Total Issue Count: {issues.length}{" "}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Current Open Issue
+        Percentage: {((openCount.length / issues.length) * 100).toFixed(2)}
       </h2>
     </div>
   );
