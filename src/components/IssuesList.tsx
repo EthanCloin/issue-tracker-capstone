@@ -1,5 +1,6 @@
 import { IssueResponse } from "../models/Issue";
 import IssueListItem from "./IssueListItem";
+import "./IssuesList.css";
 
 interface Props {
   issues: IssueResponse[];

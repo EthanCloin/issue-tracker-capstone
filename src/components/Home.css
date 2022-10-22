@@ -1,5 +1,6 @@
 .Home {
   /* background-color: beige; */
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

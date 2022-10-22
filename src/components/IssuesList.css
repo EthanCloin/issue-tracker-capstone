@@ -1,0 +1,9 @@
+.IssuesList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 2rem;
+  padding: 0.2rem;
+  width: 85vw;
+}

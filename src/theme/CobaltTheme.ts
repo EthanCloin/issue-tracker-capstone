@@ -20,11 +20,12 @@ interface ThemeOptions {
   };
 }
 
-const L_GREY = "#D9D9D9";
+const L_GREY = "#ECECEC";
 const D_GREY = "#353535";
 const D_BLUE = "#284B63";
 const L_BLUE = "#3C6E71";
-const D_ORANGE = "#d77a61";
+const D_ORANGE = "#F15025";
+const L_ORANGE = "#d77a61";
 
 const theme = createTheme({
   palette: {
