@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Button, Card, CardActionArea } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IssuesContext from "../context/IssueContext";
 import { IssueResponse } from "../models/Issue";
@@ -11,6 +12,7 @@ interface Props {
 
 const IssueListItem = ({ issue }: Props) => {
   const { deleteIssue, setStatus } = useContext(IssuesContext);
+  const theme = useTheme();
 
   const toggleStatus = (currentStatus: string): "open" | "closed" => {
     return currentStatus === "closed" ? "open" : "closed";
@@ -20,7 +22,7 @@ const IssueListItem = ({ issue }: Props) => {
 
   const statusColor = issue.status === "closed" ? "success" : "error";
   return (
-    <Card className="IssueListItem" variant="outlined">
+    <Card className="IssueListItem" variant="outlined" color="#353535">
       <section className="issue-header">
         <Button
           className="issue-status"
@@ -38,6 +40,7 @@ const IssueListItem = ({ issue }: Props) => {
           variant="outlined"
           endIcon={<DeleteIcon />}
           size="small"
+          color="primary"
         >
           Remove
         </Button>
