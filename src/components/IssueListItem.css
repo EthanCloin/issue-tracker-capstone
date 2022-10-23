@@ -1,13 +1,8 @@
 .IssueListItem {
-  display: flex;
-  flex-direction: column;
-  min-width: 40vw;
-  max-width: 60vw;
   min-height: 10vh;
   max-height: 30vh;
-  border: 2px solid black;
-  padding: 0.25rem;
-  margin: 0.35rem auto;
+  margin: 1rem;
+  padding: 0.5rem;
 }
 
 .IssueListItem .issue-header {
@@ -19,12 +14,13 @@
 }
 
 .IssueListItem .issue-status {
-  border-radius: 5%;
+  opacity: 65%;
+  /* border-radius: 5%;
   max-width: min-content;
   margin-right: auto;
   margin-top: auto;
   padding: 0.5rem;
-  font-size: medium;
+  font-size: medium; */
 }
 
 .IssueListItem .delete-issue {
@@ -35,13 +31,13 @@
   font-size: medium;
 }
 .IssueListItem .issue-status.open {
-  background-color: rgba(200, 63, 63, 0.7);
-  border: 2px rgba(200, 63, 63, 0.7) solid;
+  /* background-color: rgba(200, 63, 63, 0.7);
+  border: 2px rgba(200, 63, 63, 0.7) solid; */
 }
 
 .IssueListItem .issue-status.closed {
-  background-color: rgba(63, 200, 63, 0.7);
-  border: 2px rgba(63, 200, 63, 0.7) solid;
+  /* background-color: rgba(63, 200, 63, 0.7);
+  border: 2px rgba(63, 200, 63, 0.7) solid; */
 }
 
 .IssueListItem .issue-description {
@@ -55,7 +51,7 @@
 }
 
 .IssueListItem .issue-assignee {
-  display: flex;
-  justify-content: flex-end;
+  margin-left: auto;
   padding: 0.25rem;
+  /* background-color: purple; */
 }

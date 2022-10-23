@@ -4,15 +4,19 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import IssuesContextProvider from "./context/IssueContextProvider";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme/CobaltTheme";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <IssuesContextProvider>
-      <App />
-    </IssuesContextProvider>
+    <ThemeProvider theme={theme}>
+      <IssuesContextProvider>
+        <App />
+      </IssuesContextProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

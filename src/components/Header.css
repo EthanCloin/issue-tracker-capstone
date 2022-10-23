@@ -1,7 +1,13 @@
 .Header {
-  color: chocolate;
-  /* background-color: beige; */
-  font-style: italic;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+}
+.Header .inner-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Header .inner-header h1 {
+  /* margin-right: auto; */
+}
+
+.issue-stats p {
 }

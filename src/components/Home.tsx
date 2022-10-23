@@ -3,7 +3,7 @@ import Issue, { IssueResponse } from "../models/Issue";
 import { addIssueToDb, getAllIssues } from "../services/IssueService";
 import AddIssueForm from "./add-issue-form";
 import "./Home.css";
-import IssueList from "./issue-list";
+import IssueList from "./IssuesList";
 import { useSearchParams } from "react-router-dom";
 import IssueFilterForm from "./issue-filter-form";
 import IssuesContext from "../context/IssueContext";
@@ -48,8 +48,15 @@ const Home = () => {
   return (
     <div className="Home">
       <AddIssueForm addNewIssue={addIssue} />
-      <IssueFilterForm initialAssigneeValue={assigneeFilter} initialStatusValue={statusFilter}/>
-      <IssueList issues={issues} assigneeFilter={assigneeFilter} statusFilter={statusFilter}/>
+      <IssueFilterForm
+        initialAssigneeValue={assigneeFilter}
+        initialStatusValue={statusFilter}
+      />
+      <IssueList
+        issues={issues}
+        assigneeFilter={assigneeFilter}
+        statusFilter={statusFilter}
+      />
     </div>
   );
 };
