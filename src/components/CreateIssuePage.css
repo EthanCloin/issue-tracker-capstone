@@ -1,12 +1,20 @@
-.AddIssueForm {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.CreateIssuePage {
+  margin: 3rem 4rem;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: space-evenly; */
+  /* flex-direction: column;  */
 }
 
-.AddIssueForm section {
+.CreateIssuePage section {
+  /* background-color: purple;
+  flex-grow: 3; */
+  text-align: left;
 }
 
-.AddIssueForm .add-title {
-  flex-grow: 3;
+.CreateIssuePage section label {
+}
+
+.CreateIssuePage .description {
+  margin-top: 0.2rem;
 }

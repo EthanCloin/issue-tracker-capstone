@@ -1,6 +1,6 @@
-import Issue from "../models/Issue";
 import IssuesContext from "../context/IssueContext";
 import { FormEvent, useState, useContext } from "react";
+import TextField from "@mui/material/TextField";
 import "./CreateIssuePage.css";
 
 function CreateIssuePage() {
@@ -17,7 +17,7 @@ function CreateIssuePage() {
   }
   return (
     <form
-      className="AddIssueForm"
+      className="CreateIssuePage"
       onSubmit={(submissionEvent) => {
         handleSubmission(submissionEvent);
       }}
@@ -25,16 +25,18 @@ function CreateIssuePage() {
       <h2 className="add-title">Add New Issue</h2>
       <section>
         <label htmlFor="description">Description</label>
-        <textarea
+        <TextField
+          className="description"
           name="description"
           id="description"
           value={givenDescription}
+          multiline
+          fullWidth
+          minRows={4}
           onChange={(changeEvent) =>
             setGivenDescription(changeEvent.target.value)
           }
-          rows={5}
-          cols={30}
-        ></textarea>
+        ></TextField>
       </section>
 
       <section>
