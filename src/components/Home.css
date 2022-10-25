@@ -1,6 +1,27 @@
 .Home {
-  /* background-color: beige; */
   display: flex;
   flex-direction: column;
+
+  /* background-color: beige; */
+  /* display: flex;
+  flex-direction: column; */
   /* justify-content: center; */
+}
+
+.Home .AddIssueButton {
+  /* margin-left: 10vw; */
+  width: fit-content;
+  margin: 1rem 0.5rem 1rem auto;
+  /* margin-left: auto;
+  margin-right: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem; */
+}
+
+.Home .AddIssueButton .plus-sign {
+  border: 1px solid white;
+  border-radius: 50%;
+  /* margin: 0.2rem 0.4rem; */
+  padding: 0.2rem;
+  font-size: x-large;
 }

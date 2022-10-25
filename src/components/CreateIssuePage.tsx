@@ -1,17 +1,15 @@
 import Issue from "../models/Issue";
-import { FormEvent, useState } from "react";
-import "./add-issue-form.css";
+import IssuesContext from "../context/IssueContext";
+import { FormEvent, useState, useContext } from "react";
+import "./CreateIssuePage.css";
 
-interface Props {
-  addNewIssue: (newIssue: Issue) => void;
-}
-
-function AddIssueForm({ addNewIssue }: Props) {
+function CreateIssuePage() {
+  const { addIssue } = useContext(IssuesContext);
   const [givenDescription, setGivenDescription] = useState("");
   const [givenAssignee, setGivenAssignee] = useState("");
   function handleSubmission(submitEvent: FormEvent) {
     submitEvent.preventDefault();
-    addNewIssue({
+    addIssue({
       assignee: givenAssignee,
       description: givenDescription,
       status: "open",
@@ -27,15 +25,16 @@ function AddIssueForm({ addNewIssue }: Props) {
       <h2 className="add-title">Add New Issue</h2>
       <section>
         <label htmlFor="description">Description</label>
-        <input
-          type="text"
+        <textarea
           name="description"
           id="description"
           value={givenDescription}
           onChange={(changeEvent) =>
             setGivenDescription(changeEvent.target.value)
           }
-        />
+          rows={5}
+          cols={30}
+        ></textarea>
       </section>
 
       <section>
@@ -53,4 +52,4 @@ function AddIssueForm({ addNewIssue }: Props) {
   );
 }
 
-export default AddIssueForm;
+export default CreateIssuePage;
