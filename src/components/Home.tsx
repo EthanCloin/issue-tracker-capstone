@@ -5,7 +5,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import IssueFilterForm from "./issue-filter-form";
 import IssuesContext from "../context/IssueContext";
 import { Fab } from "@mui/material";
-import AddIcon from "@mui/icons-material/AddTwoTone";
+import AddIcon from "@mui/icons-material/AddOutlined";
 
 const Home = () => {
   const [searchParameters] = useSearchParams();
@@ -20,15 +20,15 @@ const Home = () => {
       <Fab
         className="AddIssueButton"
         aria-label="add"
-        variant="extended"
+        variant="circular"
         color="error"
         size="large"
         onClick={() => {
           navigate("/issue/new");
         }}
+        // style={{ textAlign: "center" }}
       >
-        <AddIcon className="plus-sign" sx={{ mr: 1 }} />
-        New Issue
+        <AddIcon className="plus-sign" fontSize="large" />
       </Fab>
       <IssueFilterForm
         initialAssigneeValue={assigneeFilter}
