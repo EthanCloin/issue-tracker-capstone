@@ -5,10 +5,7 @@ import { IssueResponse } from "../models/Issue";
 import "./Header.css";
 import IssuesContext from "../context/IssueContext";
 import { useNavigate } from "react-router-dom";
-
-interface Props {
-  issues: IssueResponse[];
-}
+import SearchBar from "./SearchBar";
 
 const Header = () => {
   const theme = useTheme();
@@ -21,13 +18,14 @@ const Header = () => {
   return (
     <AppBar className="Header" position="sticky">
       <Toolbar className="inner-header">
-        <h1 onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
-          Issue Tracker
-        </h1>
         <section className="issue-stats">
+          <h1 onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
+            Issue Tracker
+          </h1>
           <p className="issue-count">Issues: {issues.length}</p>
           <p className="open-percent">Open: {openPercent}%</p>
         </section>
+        <SearchBar />
       </Toolbar>
     </AppBar>
   );
