@@ -60,7 +60,7 @@ export default function SearchBar() {
    *
    * @param searchText contents of searchbar
    */
-  const parseSearchText = (searchText: string): any => {
+  const parseSearchTextToObject = (searchText: string): any => {
     // TODO: This function is not type-safe and should have an associated
     // model which supports all valid filters which are attributes on the Issue but are
     // entirely optional
@@ -74,11 +74,12 @@ export default function SearchBar() {
     // checks for every possible filter - could instead just parse for ':' and do some string work
     valid_filters.forEach((filter) => {
       if (searchText.includes(filter)) {
-        const startIdx = searchText.indexOf(filter); // maybe add len of filter to skip processing the filter
+        const startIdx = searchText.indexOf(filter);
         let endIdx = searchText.length;
 
         // look for the first whitespace after the filter
-        for (var i = startIdx; i < searchText.length; i++) {
+        const searchStart = startIdx + filter.length - 1; // skip the filter itself
+        for (var i = searchStart; i < searchText.length; i++) {
           if (searchText[i] === " ") {
             endIdx = i;
             break;
@@ -92,9 +93,12 @@ export default function SearchBar() {
       }
     });
 
-    // any non-filter searchText is considered description
+    // remaining non-filter searchText is implicitly description
     queryObject.description = searchText;
+    return queryObject;
   };
+
+  // now add a function which translates the object into a url search param like ?status=open
 
   const searchHandler = (e: FormEvent): void => {
     e.preventDefault();
