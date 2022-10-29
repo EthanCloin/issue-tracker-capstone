@@ -21,7 +21,7 @@ export interface IssueMetadata extends IssueResponse {
 }
 
 export interface IssueFilter {
-  description: string;
+  description?: string;
   status?: string; // for now, will be actual type in next version
   assignee?: string;
 }

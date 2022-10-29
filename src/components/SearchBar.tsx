@@ -1,8 +1,8 @@
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { FormEvent, useState, KeyboardEvent } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { IssueFilter } from "../models/Issue";
 
 /* Taken from MaterialUI examples */
@@ -51,7 +51,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const updateUrl = (e: KeyboardEvent) => {
+    if (e.key !== "Enter") return;
+
+    console.log("Q: " + query);
+    const searchObject = parseSearchTextToObject(query);
+    setSearchParams(searchObject as any); // react hooks love rejecting my custom types
+  };
 
   /**
    * use this function to check whether the searchText includes
@@ -70,7 +78,7 @@ export default function SearchBar() {
     let queryObject: any = {};
 
     // simplest case - includes no filters
-    if (!searchText.includes(":")) return { description: searchText };
+    if (!searchText.includes(":")) return {};
 
     // checks for every possible filter - could instead just parse for ':' and do some string work
     valid_filters.forEach((filter) => {
@@ -95,7 +103,7 @@ export default function SearchBar() {
     });
 
     // remaining non-filter searchText is implicitly description
-    queryObject.description = searchText;
+    // queryObject.description = searchText;
     return queryObject;
   };
 
@@ -108,10 +116,6 @@ export default function SearchBar() {
       .map((key) => key + "=" + (filter as any)[key])
       .join("&");
 
-  const searchHandler = (e: FormEvent): void => {
-    e.preventDefault();
-  };
-
   return (
     <Search>
       <SearchIconWrapper>
@@ -119,8 +123,8 @@ export default function SearchBar() {
       </SearchIconWrapper>
       <StyledInputBase
         placeholder="Search…"
-        inputProps={{ "aria-label": "search" }}
-        // onSubmit={}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => updateUrl(e)}
       />
     </Search>
   );

@@ -1,18 +1,15 @@
 .CreateIssuePage {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: 3rem 4rem;
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: space-evenly; */
-  /* flex-direction: column;  */
 }
 
 .CreateIssuePage section {
-  /* background-color: purple;
-  flex-grow: 3; */
   text-align: left;
 }
 
-.CreateIssuePage section label {
+.CreateIssuePage section {
 }
 
 .CreateIssuePage .description {

@@ -30,10 +30,6 @@ const Home = () => {
       >
         <AddIcon className="plus-sign" fontSize="large" />
       </Fab>
-      <IssueFilterForm
-        initialAssigneeValue={assigneeFilter}
-        initialStatusValue={statusFilter}
-      />
       <IssueList
         issues={issues}
         assigneeFilter={assigneeFilter}

@@ -41,11 +41,11 @@ function CreateIssuePage() {
 
       <section>
         <label htmlFor="assignee">Assignee</label>
-        <input
-          type="text"
+        <TextField
           name="assignee"
           id="assignee"
           value={givenAssignee}
+          fullWidth
           onChange={(changeEvent) => setGivenAssignee(changeEvent.target.value)}
         />
         <input type="submit" value="Add New Issue" />
