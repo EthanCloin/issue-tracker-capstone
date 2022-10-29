@@ -1,57 +1,35 @@
-import { useContext, useEffect, useState } from "react";
-import Issue, { IssueResponse } from "../models/Issue";
-import { addIssueToDb, getAllIssues } from "../services/IssueService";
-import AddIssueForm from "./add-issue-form";
+import { useContext } from "react";
 import "./Home.css";
 import IssueList from "./IssuesList";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import IssueFilterForm from "./issue-filter-form";
 import IssuesContext from "../context/IssueContext";
+import { Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/AddOutlined";
 
 const Home = () => {
   const [searchParameters] = useSearchParams();
 
   const assigneeFilter = searchParameters.get("assignee") || "";
   const statusFilter = searchParameters.get("status") || "";
-  // console.log("assigneeFilter: " + assigneeFilter);
-  // console.log("statusFilter: " + statusFilter);
+  const navigate = useNavigate();
 
-  const { addIssue, issues } = useContext(IssuesContext);
-  console.info("CTX ISSUES: ", issues);
-  // FIRST TIME
-  // useEffect(() => {
-  //   // this only runs when the home component is first mounted
-  //   // adding issues to the dependency array makes it keep calling
-  //   // the getAllIssues endpoint.
-  //   getAllIssues().then((res) => {
-  //     setHomeIssues(res);
-  //     console.log("issues: ", res);
-  //   });
-  // }, []);
-
-  // const addNewIssue = (newIssue: Issue) => {
-  //   const rsp = addIssueToDb(newIssue);
-  //   console.log("add response: ", rsp);
-  //   getAllIssues().then((res) => setIssues(res));
-  // };
-  // const filteredIssues: IssueResponse[] = [];
-  // issues.forEach((issue) => {
-  //   if (assigneeFilter && issue.assignee !== assigneeFilter) {
-  //     return;
-  //   }
-  //   if (statusFilter && issue.status !== statusFilter) {
-  //     return;
-  //   }
-  //   filteredIssues.push(issue);
-  // });
-  // console.log("filtered issues: ", filteredIssues);
+  const { issues } = useContext(IssuesContext);
   return (
     <div className="Home">
-      <AddIssueForm addNewIssue={addIssue} />
-      <IssueFilterForm
-        initialAssigneeValue={assigneeFilter}
-        initialStatusValue={statusFilter}
-      />
+      <Fab
+        className="AddIssueButton"
+        aria-label="add"
+        variant="circular"
+        color="error"
+        size="large"
+        onClick={() => {
+          navigate("/issue/new");
+        }}
+        // style={{ textAlign: "center" }}
+      >
+        <AddIcon className="plus-sign" fontSize="large" />
+      </Fab>
       <IssueList
         issues={issues}
         assigneeFilter={assigneeFilter}

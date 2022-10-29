@@ -1,0 +1,17 @@
+.CreateIssuePage {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 3rem 4rem;
+}
+
+.CreateIssuePage section {
+  text-align: left;
+}
+
+.CreateIssuePage section {
+}
+
+.CreateIssuePage .description {
+  margin-top: 0.2rem;
+}

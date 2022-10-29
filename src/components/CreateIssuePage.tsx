@@ -1,17 +1,15 @@
-import Issue from "../models/Issue";
-import { FormEvent, useState } from "react";
-import "./add-issue-form.css";
+import IssuesContext from "../context/IssueContext";
+import { FormEvent, useState, useContext } from "react";
+import TextField from "@mui/material/TextField";
+import "./CreateIssuePage.css";
 
-interface Props {
-  addNewIssue: (newIssue: Issue) => void;
-}
-
-function AddIssueForm({ addNewIssue }: Props) {
+function CreateIssuePage() {
+  const { addIssue } = useContext(IssuesContext);
   const [givenDescription, setGivenDescription] = useState("");
   const [givenAssignee, setGivenAssignee] = useState("");
   function handleSubmission(submitEvent: FormEvent) {
     submitEvent.preventDefault();
-    addNewIssue({
+    addIssue({
       assignee: givenAssignee,
       description: givenDescription,
       status: "open",
@@ -19,7 +17,7 @@ function AddIssueForm({ addNewIssue }: Props) {
   }
   return (
     <form
-      className="AddIssueForm"
+      className="CreateIssuePage"
       onSubmit={(submissionEvent) => {
         handleSubmission(submissionEvent);
       }}
@@ -27,24 +25,27 @@ function AddIssueForm({ addNewIssue }: Props) {
       <h2 className="add-title">Add New Issue</h2>
       <section>
         <label htmlFor="description">Description</label>
-        <input
-          type="text"
+        <TextField
+          className="description"
           name="description"
           id="description"
           value={givenDescription}
+          multiline
+          fullWidth
+          minRows={4}
           onChange={(changeEvent) =>
             setGivenDescription(changeEvent.target.value)
           }
-        />
+        ></TextField>
       </section>
 
       <section>
         <label htmlFor="assignee">Assignee</label>
-        <input
-          type="text"
+        <TextField
           name="assignee"
           id="assignee"
           value={givenAssignee}
+          fullWidth
           onChange={(changeEvent) => setGivenAssignee(changeEvent.target.value)}
         />
         <input type="submit" value="Add New Issue" />
@@ -53,4 +54,4 @@ function AddIssueForm({ addNewIssue }: Props) {
   );
 }
 
-export default AddIssueForm;
+export default CreateIssuePage;
