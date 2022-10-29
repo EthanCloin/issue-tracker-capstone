@@ -3,6 +3,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { IssueFilter } from "../models/Issue";
 
 /* Taken from MaterialUI examples */
 
@@ -60,7 +61,7 @@ export default function SearchBar() {
    *
    * @param searchText contents of searchbar
    */
-  const parseSearchTextToObject = (searchText: string): any => {
+  const parseSearchTextToObject = (searchText: string): IssueFilter => {
     // TODO: This function is not type-safe and should have an associated
     // model which supports all valid filters which are attributes on the Issue but are
     // entirely optional
@@ -99,6 +100,13 @@ export default function SearchBar() {
   };
 
   // now add a function which translates the object into a url search param like ?status=open
+  // not sure how to do this without casting to 'any', but at this point the filter is already
+  // guaranteed to be IssueFilter type
+  const parseIssueFilterToQuery = (filter: IssueFilter): string =>
+    "?" +
+    Object.keys(filter)
+      .map((key) => key + "=" + (filter as any)[key])
+      .join("&");
 
   const searchHandler = (e: FormEvent): void => {
     e.preventDefault();
@@ -112,7 +120,7 @@ export default function SearchBar() {
       <StyledInputBase
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
-        onSubmit={}
+        // onSubmit={}
       />
     </Search>
   );

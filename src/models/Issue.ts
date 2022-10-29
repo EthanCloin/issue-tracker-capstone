@@ -19,3 +19,9 @@ export interface IssueMetadata extends IssueResponse {
   _keywords: string[];
   _version: number;
 }
+
+export interface IssueFilter {
+  description: string;
+  status?: string; // for now, will be actual type in next version
+  assignee?: string;
+}
