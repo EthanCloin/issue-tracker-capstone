@@ -1,3 +1,6 @@
+# Live Site
+https://surge-issuetracker.surge.sh
+
 # PROJECT HISTORY
 
 ## Version 1 (v1.0) :student:
@@ -7,6 +10,17 @@ https://surge-issuetracker.surge.sh/
 While the UI design was underdeveloped in favor of implementing all requested features, this app presents popular features like Client-Side Routing, CRUD Operations, and utilizes a REST API. The web application is deployed via [Surge.sh](https://surge.sh/) as a static site at the domain https://surge-issuetracker.surge.sh! 
 
 This project allowed us to practice the React Basics gathered over our 4 week course, including managing Context and State via React Hooks, interacting with the URL via `searchParams()`, and passing Props from parent --> child components.
+
+## Version 2 (v1.1)
+IN PROGRESS!
+
+- Utilize component from the MaterialUI component library to improve the look and feel across all views
+- Improve UX when navigating between views (home, add issue, and issue detail) 
+- Extend Add Issue functionality
+  - Create
+  - Create and Add Another
+  - Discard
+- Extend filter functionality by adding searchbar to header and parsing to look for specific attributes
 
 # PROJECT FUTURE
 
