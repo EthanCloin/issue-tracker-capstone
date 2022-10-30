@@ -1,17 +1,30 @@
-.CreateIssuePage {
+.CreateIssueForm {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 3rem 4rem;
+  margin: 0 3rem;
 }
 
-.CreateIssuePage section {
+.CreateIssueForm .form-field {
+  margin-top: 3vh;
   text-align: left;
 }
 
-.CreateIssuePage section {
+.CreateIssueForm .create-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+  margin: 0 auto;
+  margin-top: 5vh;
 }
 
-.CreateIssuePage .description {
-  margin-top: 0.2rem;
+.CreateIssuePage .form-header {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+.CreateIssuePage .form-header .discard-btn {
+  height: min-content;
+  margin-left: 10vw;
+  margin-right: 3vw;
 }
