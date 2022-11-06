@@ -1,37 +1,36 @@
+/*
+Currently broken! 
+*/
 import IssuesContext from "../context/IssueContext";
 import { FormEvent, useState, useContext } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
 import "./CreateIssuePage.css";
+import { useNavigate } from "react-router-dom";
 
 function CreateIssuePage() {
   const { addIssue } = useContext(IssuesContext);
+  // could replace these with ref but first need to understand ref
   const [description, setDescription] = useState("");
   const [assignee, setAssignee] = useState("");
-  function handleSubmission(
-    submitEvent: FormEvent,
-    redirectTo: "home" | "" = ""
-  ) {
-    submitEvent.preventDefault();
-    console.log(redirectTo);
-    if (redirectTo === "") {
-      console.log("staying here");
-      addIssue({
-        assignee: assignee,
-        description: description,
-        status: "open",
-      });
-    } else {
-      console.log("going home");
-      submitEvent.preventDefault();
-      addIssue({
-        assignee: assignee,
-        description: description,
-        status: "open",
-      });
+  const [shouldGoHome, setShouldGoHome] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleSubmission = (e: FormEvent) => {
+    e.preventDefault();
+
+    addIssue({
+      description: description,
+      assignee: assignee,
+      status: "open",
+    });
+
+    if (shouldGoHome) {
+      navigate("/");
     }
-  }
+  };
+
   return (
     <div className="CreateIssuePage">
       <section className="form-header">
@@ -51,6 +50,7 @@ function CreateIssuePage() {
         //   console.log(submissionEvent);
         //   handleSubmission(submissionEvent);
         // }}
+        onSubmit={(e) => handleSubmission(e)}
       >
         <section className="form-field">
           <label htmlFor="description">Description</label>
@@ -80,26 +80,30 @@ function CreateIssuePage() {
         </section>
         <section className="create-buttons">
           <Button
+            id="submitHome"
             type="submit"
-            onSubmit={(e) => handleSubmission(e, "home")}
+            // onSubmit={(e) => handleSubmission(e, "home")}
             color="success"
             disabled={!description || !assignee}
             size="small"
             variant="outlined"
             fullWidth
             value="Go Home"
+            onClick={() => setShouldGoHome(true)}
           >
             Create
           </Button>
           <Button
+            id="submitStay"
             type="submit"
-            onSubmit={(e) => handleSubmission(e)}
+            // onSubmit={(e) => handleSubmission(e)}
             color="success"
             disabled={!description || !assignee}
             size="small"
             variant="outlined"
             fullWidth
             value="Add Another"
+            onClick={() => setShouldGoHome(false)}
           >
             Create & Add Another
           </Button>
