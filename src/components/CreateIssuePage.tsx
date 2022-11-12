@@ -13,7 +13,7 @@ function CreateIssuePage() {
   // could replace these with ref but first need to understand ref
   const [description, setDescription] = useState("");
   const [assignee, setAssignee] = useState("");
-  const [shouldGoHome, setShouldGoHome] = useState(false);
+  const [shouldGoHome, setShouldGoHome] = useState(true);
 
   const navigate = useNavigate();
 
