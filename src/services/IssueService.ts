@@ -1,75 +1,59 @@
 import axios from "axios";
-import Issue, { IssueMetadata, IssueResponse } from "../models/Issue";
+import { IssuePrototype, Issue } from "../models/Issue";
 
-const dbApiKey = process.env.REACT_APP_DB_API_KEY_DEV || "";
-const issuesDocumentUrl = "https://issuetracker-b807.restdb.io/rest/issue";
+const backendDevURL = "http://0.0.0.0:8000";
 
-export const getAllIssues = (): Promise<IssueResponse[]> => {
+export const getAllIssues = (
+  offset?: number,
+  limit?: number
+): Promise<Issue[]> => {
   return axios
-    .get(issuesDocumentUrl, {
-      headers: {
-        "x-api-key": dbApiKey,
+    .get(`${backendDevURL}/issues/`, {
+      params: {
+        offset: offset,
+        limit: limit,
       },
     })
     .then((res) => res.data);
 };
 
-export const getIssue = (id: string): Promise<IssueMetadata> => {
+export const getIssue = (id: number, all_details?: boolean): Promise<Issue> => {
   return axios
-    .get(`${issuesDocumentUrl}/${id} `, {
-      headers: {
-        "x-api-key": dbApiKey,
+    .get(`${backendDevURL}/issues/${id}`, {
+      params: {
+        all_details: all_details,
       },
     })
     .then((res) => res.data);
 };
 
-export const addIssueToDb = (newIssue: Issue): Promise<IssueResponse> => {
+export const createIssue = (newIssue: IssuePrototype): Promise<Issue> => {
   return axios({
     method: "post",
-    url: issuesDocumentUrl,
+    url: `${backendDevURL}/issues`,
     data: {
+      title: newIssue.title || "",
       assignee: newIssue.assignee,
       description: newIssue.description,
       status: newIssue.status,
     },
-    headers: { "x-api-key": dbApiKey },
   }).then((res) => res.data);
 };
 
-export const deleteIssueFromDb = (id: string): Promise<string> => {
+export const deleteIssueFromDb = (id: number): Promise<Issue> => {
   return axios({
     method: "delete",
-    url: `${issuesDocumentUrl}/${id}`,
-    headers: { "x-api-key": dbApiKey },
+    url: `${backendDevURL}/issues/${id}`,
   }).then((res) => res.data);
 };
 
 export const updateIssueInDb = (
-  id: string,
-  assignee?: string,
-  status?: "open" | "closed"
-): Promise<IssueResponse> => {
-  let fieldsToUpdate = {};
-
-  // there is surely a more concise version of this logic
-  if (assignee && status) {
-    fieldsToUpdate = {
-      status: status,
-      assignee: assignee,
-    };
-  } else if (assignee) {
-    fieldsToUpdate = { assignee: assignee };
-  } else if (status) {
-    fieldsToUpdate = { status: status };
-  } else {
-    console.warn("no issue properties provided to update fxn!");
-  }
-  console.info("UPDATE BODY: ", fieldsToUpdate);
+  id: number,
+  newIssue: IssuePrototype
+): Promise<Issue> => {
   return axios({
     method: "put",
-    url: `${issuesDocumentUrl}/${id}`,
-    headers: { "x-api-key": dbApiKey },
-    data: fieldsToUpdate,
+    url: `${backendDevURL}/issues/${id}`,
+    data: newIssue,
   }).then((res) => res.data);
 };

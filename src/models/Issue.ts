@@ -1,27 +1,21 @@
-// I would prefer to use the terse syntax 'Issue' most often.
-// maybe we change this again to be IssuePrototype (no ID) and Issue (has id)
+export type IssueStatus = "open" | "closed";
 
-export default interface Issue {
+export interface IssuePrototype {
+  title?: string;
   description: string;
-  status: "open" | "closed" | string; // consider custom typing or something to only allow open or closed
+  status: IssueStatus;
   assignee: string;
 }
 
-export interface IssueResponse extends Issue {
-  _id: string;
+export interface Issue extends IssuePrototype {
+  id: number;
 }
 
-export interface IssueMetadata extends IssueResponse {
-  _created: string;
-  _changed: string;
-  _createdby: string; // consider finding the specific datettime format type
-  _changedby: string;
-  _keywords: string[];
-  _version: number;
-}
-
+/**
+ * represents the keys which can be used to filter the issues presented on the home page
+ */
 export interface IssueFilter {
   description?: string;
-  status?: string; // for now, will be actual type in next version
+  status?: IssueStatus;
   assignee?: string;
 }

@@ -1,9 +1,9 @@
-import { IssueResponse } from "../models/Issue";
+import { Issue } from "../models/Issue";
 import IssueListItem from "./IssueListItem";
 import "./IssuesList.css";
 
 interface Props {
-  issues: IssueResponse[];
+  issues: Issue[];
   assigneeFilter: string;
   statusFilter: string;
 }
@@ -18,7 +18,7 @@ function IssueList({ issues, assigneeFilter, statusFilter }: Props) {
         if (statusFilter !== "" && statusFilter !== issue.status) {
           return;
         }
-        return <IssueListItem key={issue._id} issue={issue} />;
+        return <IssueListItem key={issue.id} issue={issue} />;
       })}
     </ol>
   );
