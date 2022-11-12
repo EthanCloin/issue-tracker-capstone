@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import Home from "./components/Home";
 import {
@@ -8,7 +9,6 @@ import {
 } from "react-router-dom";
 import IssueDetails from "./components/issue-details";
 import Header from "./components/Header";
-import CreateIssuePage from "./components/CreateIssuePage";
 
 function App() {
   return (
@@ -18,7 +18,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/issue/:id" element={<IssueDetails />} />
-          <Route path="/issue/new" element={<CreateIssuePage />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>

@@ -2,7 +2,7 @@ import axios from "axios";
 import Issue, { IssueMetadata, IssueResponse } from "../models/Issue";
 
 const dbApiKey = process.env.REACT_APP_DB_API_KEY_DEV || "";
-const issuesDocumentUrl = "https://issuetracker-b807.restdb.io/rest/issue";
+const issuesDocumentUrl = "http://localhost:8000/issues/";
 
 export const getAllIssues = (): Promise<IssueResponse[]> => {
   return axios
