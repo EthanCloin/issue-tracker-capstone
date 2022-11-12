@@ -6,13 +6,14 @@ import "./Header.css";
 import IssuesContext from "../context/IssueContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const Header = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const { issues } = useContext(IssuesContext);
-
+  console.log(navigate);
   const openCount = issues.filter((issue) => issue.status == "open").length;
   const openPercent = ((openCount / issues.length) * 100).toFixed(2);
 
@@ -21,7 +22,7 @@ const Header = () => {
       <Toolbar className="inner-header">
         <section className="issue-stats">
           <h1 onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
-            Issue Tracker
+          {window.location.pathname === ("/") ? "Issue Tracker" : <ArrowBackIcon/>}
           </h1>
           <p className="issue-count">Issues: {issues.length}</p>
           <p className="open-percent">Open: {openPercent}%</p>
