@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
-import IssuePrototype, { Issue } from "../models/Issue";
+import { Issue, IssuePrototype, IssueStatus } from "../models/Issue";
 import {
-  addIssueToDb,
+  createIssue,
   deleteIssueFromDb,
   getAllIssues,
   updateIssueInDb,
@@ -34,10 +34,10 @@ const IssuesContextProvider = ({ children }: Props) => {
   }, []);
 
   const addIssue = (newIssue: IssuePrototype) => {
-    addIssueToDb(newIssue).then(
+    createIssue(newIssue).then(
       (res) => {
-        console.info("ADDED TO DB", res._id);
-        setIssues([...issues, res]);
+        console.info("ADDED TO DB", res.id);
+        setIssues([res, ...issues]);
       },
       (err) => {
         console.error("UNABLE TO ADD TO DB", err);
@@ -45,12 +45,12 @@ const IssuesContextProvider = ({ children }: Props) => {
     );
   };
 
-  const deleteIssue = (issueId: string) => {
+  const deleteIssue = (issueId: number) => {
     deleteIssueFromDb(issueId).then(
       (res) => {
         console.info("DELETED FROM DB", res);
         setIssues((prev) => {
-          const index: number = prev.findIndex((item) => item._id === issueId);
+          const index: number = prev.findIndex((item) => item.id === issueId);
           return [...prev.slice(0, index), ...prev.slice(index + 1)];
         });
       },
@@ -60,34 +60,41 @@ const IssuesContextProvider = ({ children }: Props) => {
     );
   };
 
-  const hasAssignee = (id: string, assignee: string): boolean => {
+  const hasAssignee = (id: number, assignee: string): boolean => {
     const rightAssigneeIds = issues.map((issue) => {
       if (issue.assignee === assignee) {
-        return issue._id;
+        return issue.id;
       }
     });
     console.info("ids with this assignee: ", rightAssigneeIds);
     return rightAssigneeIds.includes(id);
   };
 
-  const isOpen = (id: string) => {
+  const isOpen = (id: number) => {
     const openIds = issues.map((issue) => {
       if (issue.status === "open") {
-        return issue._id;
+        return issue.id;
       }
     });
     console.info("open ids", openIds);
     return openIds.includes(id);
   };
 
-  const setStatus = (id: string, status: "open" | "closed") => {
-    updateIssueInDb(id, undefined, status).then(
+  const setStatus = (id: number, status: IssueStatus) => {
+    const currentIssueIdx = issues.findIndex((x) => x.id === id);
+    const targetIssueData = issues[currentIssueIdx];
+    targetIssueData.status = status;
+
+    updateIssueInDb(id, targetIssueData).then(
       (res) => {
         // need to change the issue in state to be the updated v from response
         setIssues((prev) => {
-          const index: number = prev.findIndex((item) => item._id === id);
           // should put the returned updated issue in the same place as the prev
-          return [...prev.slice(0, index), res, ...prev.slice(index + 1)];
+          return [
+            ...prev.slice(0, currentIssueIdx),
+            res,
+            ...prev.slice(currentIssueIdx + 1),
+          ];
         });
       },
       (err) => {
@@ -96,14 +103,21 @@ const IssuesContextProvider = ({ children }: Props) => {
     );
   };
 
-  const setAssignee = (id: string, assignee: string) => {
-    updateIssueInDb(id, assignee, undefined).then(
+  const setAssignee = (id: number, assignee: string) => {
+    const currentIssueIdx = issues.findIndex((x) => x.id === id);
+    const targetIssueData = issues[currentIssueIdx];
+    targetIssueData.assignee = assignee;
+
+    updateIssueInDb(id, targetIssueData).then(
       (res) => {
         // need to change the issue in state to be the updated v from response
         setIssues((prev) => {
-          const index: number = prev.findIndex((item) => item._id === id);
           // should put the returned updated issue in the same place as the prev
-          return [...prev.slice(0, index), res, ...prev.slice(index + 1)];
+          return [
+            ...prev.slice(0, currentIssueIdx),
+            res,
+            ...prev.slice(currentIssueIdx + 1),
+          ];
         });
       },
       (err) => {
