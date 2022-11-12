@@ -11,14 +11,14 @@ interface Props {
 function IssueList({ issues, assigneeFilter, statusFilter }: Props) {
   return (
     <ol className="IssuesList">
-      {issues.map((issue) => {
+      {issues.map((issue: any, index: number) => {
         if (assigneeFilter !== "" && assigneeFilter !== issue.assignee) {
           return;
         }
         if (statusFilter !== "" && statusFilter !== issue.status) {
           return;
         }
-        return <IssueListItem key={issue._id} issue={issue} />;
+        return <IssueListItem issue={issue} key={`issue-${index}`} />;
       })}
     </ol>
   );
