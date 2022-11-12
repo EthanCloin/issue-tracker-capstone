@@ -18,7 +18,7 @@ function IssueList({ issues, assigneeFilter, statusFilter }: Props) {
         if (statusFilter !== "" && statusFilter !== issue.status) {
           return;
         }
-        return <IssueListItem key={issue._id} issue={issue} />;
+        return <IssueListItem key={issue.id} issue={issue} />;
       })}
     </ol>
   );

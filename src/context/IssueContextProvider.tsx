@@ -107,6 +107,7 @@ const IssuesContextProvider = ({ children }: Props) => {
     const currentIssueIdx = issues.findIndex((x) => x.id === id);
     const targetIssueData = issues[currentIssueIdx];
     targetIssueData.assignee = assignee;
+    //
 
     updateIssueInDb(id, targetIssueData).then(
       (res) => {

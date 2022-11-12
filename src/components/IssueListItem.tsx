@@ -29,14 +29,14 @@ const IssueListItem = ({ issue }: Props) => {
           variant="contained"
           color={statusColor}
           size="large"
-          onClick={() => setStatus(issue._id, toggleStatus(issue.status))}
+          onClick={() => setStatus(issue.id, toggleStatus(issue.status))}
         >
           {issue.status}
         </Button>
 
         <Button
           className="delete-issue"
-          onClick={() => deleteIssue(issue._id)}
+          onClick={() => deleteIssue(issue.id)}
           variant="outlined"
           endIcon={<DeleteIcon />}
           size="small"
@@ -48,7 +48,7 @@ const IssueListItem = ({ issue }: Props) => {
 
       <CardActionArea
         className="issue-description"
-        onClick={() => navigate(`/issue/${issue._id}`)}
+        onClick={() => navigate(`/issue/${issue.id}`)}
       >
         <h3 className="title">Description</h3>
         <p className="issue-description">{issue.description}</p>

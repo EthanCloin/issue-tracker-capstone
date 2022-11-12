@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IssuePrototype, Issue, IssueStatus } from "../models/Issue";
+import { IssuePrototype, Issue } from "../models/Issue";
 
 const backendDevURL = "http://0.0.0.0:8000";
 
