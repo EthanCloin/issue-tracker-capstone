@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
-import Issue, { IssueResponse } from "../models/Issue";
+import IssuePrototype, { Issue } from "../models/Issue";
 import {
   addIssueToDb,
   deleteIssueFromDb,
@@ -18,7 +18,7 @@ const IssuesContextProvider = ({ children }: Props) => {
   // break encapsulation, but we need to update it based on filters and original getAll
 
   // we can add useEffect here to set initial getAll values
-  const [issues, setIssues] = useState<IssueResponse[]>([]);
+  const [issues, setIssues] = useState<Issue[]>([]);
   const getIssues = () => {
     getAllIssues().then((res) => {
       setIssues(res);
@@ -33,7 +33,7 @@ const IssuesContextProvider = ({ children }: Props) => {
     getIssues();
   }, []);
 
-  const addIssue = (newIssue: Issue) => {
+  const addIssue = (newIssue: IssuePrototype) => {
     addIssueToDb(newIssue).then(
       (res) => {
         console.info("ADDED TO DB", res._id);

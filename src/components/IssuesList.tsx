@@ -1,9 +1,9 @@
-import { IssueResponse } from "../models/Issue";
+import { Issue } from "../models/Issue";
 import IssueListItem from "./IssueListItem";
 import "./IssuesList.css";
 
 interface Props {
-  issues: IssueResponse[];
+  issues: Issue[];
   assigneeFilter: string;
   statusFilter: string;
 }

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useTheme } from "@mui/material";
 import { AppBar, Toolbar } from "@mui/material";
-import { IssueResponse } from "../models/Issue";
+import { Issue } from "../models/Issue";
 import "./Header.css";
 import IssuesContext from "../context/IssueContext";
 import { useLocation, useNavigate } from "react-router-dom";

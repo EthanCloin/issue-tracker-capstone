@@ -1,10 +1,10 @@
 import axios from "axios";
-import Issue, { IssueMetadata, IssueResponse } from "../models/Issue";
+import IssuePrototype, { IssueMetadata, Issue } from "../models/Issue";
 
 const dbApiKey = process.env.REACT_APP_DB_API_KEY_DEV || "";
 const issuesDocumentUrl = "https://issuetracker-b807.restdb.io/rest/issue";
 
-export const getAllIssues = (): Promise<IssueResponse[]> => {
+export const getAllIssues = (): Promise<Issue[]> => {
   return axios
     .get(issuesDocumentUrl, {
       headers: {
@@ -24,7 +24,7 @@ export const getIssue = (id: string): Promise<IssueMetadata> => {
     .then((res) => res.data);
 };
 
-export const addIssueToDb = (newIssue: Issue): Promise<IssueResponse> => {
+export const addIssueToDb = (newIssue: IssuePrototype): Promise<Issue> => {
   return axios({
     method: "post",
     url: issuesDocumentUrl,
@@ -49,7 +49,7 @@ export const updateIssueInDb = (
   id: string,
   assignee?: string,
   status?: "open" | "closed"
-): Promise<IssueResponse> => {
+): Promise<Issue> => {
   let fieldsToUpdate = {};
 
   // there is surely a more concise version of this logic

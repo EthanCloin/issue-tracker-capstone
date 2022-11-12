@@ -3,11 +3,11 @@ import { Button, Card, CardActionArea } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IssuesContext from "../context/IssueContext";
-import { IssueResponse } from "../models/Issue";
+import { Issue } from "../models/Issue";
 import "./IssueListItem.css";
 import { useNavigate } from "react-router-dom";
 interface Props {
-  issue: IssueResponse;
+  issue: Issue;
 }
 
 const IssueListItem = ({ issue }: Props) => {

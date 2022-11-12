@@ -1,9 +1,9 @@
 import { createContext } from "react";
-import Issue, { IssueResponse } from "../models/Issue";
+import IssuePrototype, { Issue } from "../models/Issue";
 
 interface IssueContextModel {
-  issues: IssueResponse[];
-  addIssue: (newIssue: Issue) => void;
+  issues: Issue[];
+  addIssue: (newIssue: IssuePrototype) => void;
   deleteIssue: (issueId: string) => void;
   hasAssignee: (id: string, assignee: string) => boolean;
   isOpen: (id: string) => boolean;
