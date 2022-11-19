@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IssuePrototype, Issue } from "../models/Issue";
 
-const backendDevURL = "http://0.0.0.0:8000";
+const backendDevURL = "http://24.199.84.215:8000";
 
 export const getAllIssues = (
   offset?: number,
